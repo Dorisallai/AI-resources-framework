@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)file:///Users/d.sallai/Downloads/AI%20Resources%20Interactive%20Framework.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resources Interactive Framework</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .framework-intro {
+            padding: 30px;
+            background: #f8f9fa;
+            text-align: center;
+            border-bottom: 3px solid #e9ecef;
+        }
+        
+        .framework-intro h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .pillars-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 40px 30px;
+            background: #f8f9fa;
+        }
+        
+        .pillar {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .pillar:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .pillar-header {
+            padding: 25px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .human-resources { background: linear-gradient(135deg, #ff6b6b, #ee5a6f); }
+        .it-resources { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+        .financial-resources { background: linear-gradient(135deg, #45b7d1, #96c93d); }
+        .intangible-resources { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        
+        .pillar-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .pillar-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .pillar-summary {
+            font-size: 0.95em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .pillar-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            background: #fafafa;
+        }
+        
+        .pillar.expanded .pillar-content {
+            max-height: 1000px;
+            padding: 25px 20px;
+        }
+        
+        .resource-item {
+            background: white;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-item:hover {
+            border-left-color: #007bff;
+            transform: translateX(5px);
+        }
+        
+        .resource-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .resource-description {
+            color: #6c757d;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+        
+        .assessment-section {
+            background: white;
+            padding: 30px;
+            margin-top: 20px;
+            border-top: 3px solid #007bff;
+        }
+        
+        .assessment-title {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .assessment-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .assessment-item:hover {
+            border-color: #007bff;
+        }
+        
+        .assessment-question {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .rating-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .rating-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-right: 10px;
+            min-width: 60px;
+        }
+        
+        .rating-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .rating-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .rating-btn:hover, .rating-btn.selected {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+            transform: scale(1.1);
+        }
+        
+        .key-message {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            margin: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .key-message h3 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+        
+        .key-message p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        
+        .expand-indicator {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .pillar.expanded .expand-indicator {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        
+        @media (max-width: 768px) {
+            .pillars-container {
+                grid-template-columns: 1fr;
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .rating-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI Resources Framework</h1>
+            <p>Discover the essential resources your organisation needs for successful AI implementation. Click on each pillar to explore detailed requirements and assess your current capabilities.</p>
+        </div>
+        
+        <div class="framework-intro">
+            <h2>Four Essential Resource Categories</h2>
+            <p>Successful AI implementation requires strategic integration across all four resource categories</p>
+        </div>
+        
+        <div class="pillars-container">
+            <div class="pillar expanded" data-category="human">
+                <div class="pillar-header human-resources">
+                    <span class="pillar-icon">👥</span>
+                    <div class="pillar-title">Human Resources</div>
+                    <div class="pillar-summary">Skills, expertise, and knowledge capabilities</div>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <div class="pillar-content">
+                    <div class="resource-item" style="background-color: white;">
+                        <div class="resource-title">Technical AI Skills</div>
+                        <div class="resource-description">Technical skills to develop, deploy and operate AI systems</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">Domain AI Skills</div>
+                        <div class="resource-description">Domain skills to support use case selection, AI systems evaluation, and business results</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">Workforce AI Skills</div>
+                        <div class="resource-description">Skills to work with and maintain AI systems in production</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">AI Ethics Expertise</div>
+                        <div class="resource-description">Personnel with responsible AI knowledge and bias detection capabilities</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">Regulatory Compliance Knowledge</div>
+                        <div class="resource-description">Understanding of AI regulations, compliance requirements, and legal frameworks in all markets</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pillar expanded" data-category="it">
+                <div class="pillar-header it-resources">
+                    <span class="pillar-icon">💻</span>
+                    <div class="pillar-title">IT Resources</div>
+                    <div class="pillar-summary">Technology infrastructure and data capabilities</div>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <div class="pillar-content">
+                    <div class="resource-item" style="background-color: white;">
+                        <div class="resource-title">Data</div>
+                        <div class="resource-description">Data in enough quantity and quality for AI development</div>
+                    </div>
+                    <div class="resource-item" style="background-color: white;">
+                        <div class="resource-title">Data Governance Frameworks</div>
+                        <div class="resource-description">Systems for managing data quality, privacy, access control, and regulatory compliance</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">AI-Specific Infrastructure</div>
+                        <div class="resource-description">Availability of AI-specific infrastructure (e.g., tools, frameworks, AI engines)</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">IT Infrastructure</div>
+                        <div class="resource-description">General ability of existing IT infrastructure to work with AI systems</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">AI Security Measures</div>
+                        <div class="resource-description">Cybersecurity measures and protocols specifically designed for AI systems</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">Performance Monitoring Platforms</div>
+                        <div class="resource-description">Tools for tracking AI system effectiveness and business performance outcomes</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pillar expanded" data-category="financial">
+                <div class="pillar-header financial-resources">
+                    <span class="pillar-icon">💰</span>
+                    <div class="pillar-title">Financial Resources</div>
+                    <div class="pillar-summary">Dedicated funding and investment capabilities</div>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <div class="pillar-content">
+                    <div class="resource-item" style="background-color: white;">
+                        <div class="resource-title">Ring-Fenced AI Funding</div>
+                        <div class="resource-description">Dedicated budgets for AI initiatives that don't compete with other digital investments</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pillar expanded" data-category="intangible">
+                <div class="pillar-header intangible-resources">
+                    <span class="pillar-icon">🤝</span>
+                    <div class="pillar-title">Intangible Resources</div>
+                    <div class="pillar-summary">Culture, relationships, and governance structures</div>
+                    <span class="expand-indicator">▼</span>
+                </div>
+                <div class="pillar-content">
+                    <div class="resource-item" style="background-color: white;">
+                        <div class="resource-title">AI-Business Relationship</div>
+                        <div class="resource-description">Strong collaborative relationships between business and AI departments</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">Sourcing Relationship and Vendor Management</div>
+                        <div class="resource-description">Effective partnerships with external AI solutions and service providers</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">Culture</div>
+                        <div class="resource-description">Organisation-wide experimental, data-driven and agile culture that supports AI adoption</div>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-title">AI Governance Structures</div>
+                        <div class="resource-description">Established oversight committees, decision-making processes, and accountability frameworks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="assessment-section">
+            <h3 class="assessment-title">Quick Self-Assessment</h3>
+            <p style="text-align: center; margin-bottom: 30px; color: #6c757d;">Rate your organisation's current capability in each resource category (1 = Very Weak, 5 = Very Strong)</p>
+            
+            <div class="assessment-item">
+                <div class="assessment-question">Human Resources: How strong are your AI-related skills and expertise?</div>
+                <div class="rating-container">
+                    <span class="rating-label">Very Weak</span>
+                    <div class="rating-buttons">
+                        <button class="rating-btn" data-category="human" data-value="1">1</button>
+                        <button class="rating-btn" data-category="human" data-value="2">2</button>
+                        <button class="rating-btn" data-category="human" data-value="3">3</button>
+                        <button class="rating-btn" data-category="human" data-value="4">4</button>
+                        <button class="rating-btn" data-category="human" data-value="5">5</button>
+                    </div>
+                    <span class="rating-label">Very Strong</span>
+                </div>
+            </div>
+            
+            <div class="assessment-item">
+                <div class="assessment-question">IT Resources: How ready is your technology infrastructure for AI?</div>
+                <div class="rating-container">
+                    <span class="rating-label">Very Weak</span>
+                    <div class="rating-buttons">
+                        <button class="rating-btn" data-category="it" data-value="1">1</button>
+                        <button class="rating-btn" data-category="it" data-value="2">2</button>
+                        <button class="rating-btn" data-category="it" data-value="3">3</button>
+                        <button class="rating-btn" data-category="it" data-value="4">4</button>
+                        <button class="rating-btn" data-category="it" data-value="5">5</button>
+                    </div>
+                    <span class="rating-label">Very Strong</span>
+                </div>
+            </div>
+            
+            <div class="assessment-item">
+                <div class="assessment-question">Financial Resources: How well-funded are your AI initiatives?</div>
+                <div class="rating-container">
+                    <span class="rating-label">Very Weak</span>
+                    <div class="rating-buttons">
+                        <button class="rating-btn" data-category="financial" data-value="1">1</button>
+                        <button class="rating-btn" data-category="financial" data-value="2">2</button>
+                        <button class="rating-btn" data-category="financial" data-value="3">3</button>
+                        <button class="rating-btn" data-category="financial" data-value="4">4</button>
+                        <button class="rating-btn" data-category="financial" data-value="5">5</button>
+                    </div>
+                    <span class="rating-label">Very Strong</span>
+                </div>
+            </div>
+            
+            <div class="assessment-item">
+                <div class="assessment-question">Intangible Resources: How strong are your AI culture and governance?</div>
+                <div class="rating-container">
+                    <span class="rating-label">Very Weak</span>
+                    <div class="rating-buttons">
+                        <button class="rating-btn" data-category="intangible" data-value="1">1</button>
+                        <button class="rating-btn" data-category="intangible" data-value="2">2</button>
+                        <button class="rating-btn" data-category="intangible" data-value="3">3</button>
+                        <button class="rating-btn" data-category="intangible" data-value="4">4</button>
+                        <button class="rating-btn" data-category="intangible" data-value="5">5</button>
+                    </div>
+                    <span class="rating-label">Very Strong</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="key-message">
+            <h3>Key Insight</h3>
+            <p>Possessing these resources alone is insufficient for AI success. Organisations must develop the <strong>capabilities</strong> to strategically combine and leverage these resources to achieve desired business outcomes and create sustainable competitive advantage through AI implementation.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Pillar expansion functionality
+        document.querySelectorAll('.pillar').forEach(pillar => {
+            pillar.addEventListener('click', () => {
+                pillar.classList.toggle('expanded');
+            });
+        });
+        
+        // Rating functionality
+        document.querySelectorAll('.rating-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const category = btn.dataset.category;
+                const value = btn.dataset.value;
+                
+                // Remove selected class from all buttons in this category
+                document.querySelectorAll(`[data-category="${category}"]`).forEach(b => {
+                    b.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked button
+                btn.classList.add('selected');
+                
+                // Store the rating (you could send this to a server or local storage)
+                console.log(`${category}: ${value}`);
+            });
+        });
+        
+        // Add some visual feedback when hovering over resource items
+        document.querySelectorAll('.resource-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.backgroundColor = '#f8f9fa';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.backgroundColor = 'white';
+            });
+        });
+    </script>
+
+</body></html>
